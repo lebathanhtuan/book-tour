@@ -1,17 +1,14 @@
 import * as types from "./../constants/ActionTypes";
 import axios from 'axios';
 
-export const showHotTours = (hotTours) => {
-    return{
-        type: types.SHOW_HOT_TOURS, 
-        hotTours
-    }
-}
 export const fetchHotTours = () => {
     return (dispatch) => {
-        return axios.get('http://localhost:3001/tours?hot=1&_start=0&_end=6')
+        axios.get('http://localhost:3001/tours?hot=1&_start=0&_end=6')
         .then(response => {
-            dispatch(showHotTours(response.data))
+            dispatch({
+                type: types.SHOW_HOT_TOURS, 
+                hotTours: response.data
+            })
         })
         .catch(error => {
             throw(error);
